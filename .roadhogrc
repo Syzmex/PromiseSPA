@@ -1,0 +1,20 @@
+{
+  "multipage": true,
+  "entry": ["src/common.js", "src/index.js"],
+  "theme": "antd.config.js",
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr",
+        "transform-runtime",
+        [ "import", { "libraryName": "antd", "style": true } ]
+      ]
+    },
+    "production": {
+      "extraBabelPlugins": [
+        "transform-runtime",
+        [ "import", { "libraryName": "antd", "style": true } ]
+      ]
+    }
+  }
+}
