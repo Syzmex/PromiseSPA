@@ -1,6 +1,8 @@
 
+
 import React from 'react';
 import './IndexPage.less';
+
 
 function IndexPage() {
   return (
@@ -10,6 +12,9 @@ function IndexPage() {
   );
 }
 
+
 IndexPage.propTypes = {};
 
+
 export default IndexPage;
+

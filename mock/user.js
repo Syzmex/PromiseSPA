@@ -2,6 +2,7 @@
 
 import Mock from 'mockjs';
 
+
 export const getUsers = ( req, res ) => {
   res.type('text');
   res.json(
