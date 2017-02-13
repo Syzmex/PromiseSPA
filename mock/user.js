@@ -2,7 +2,7 @@
 
 import Mock from 'mockjs';
 
-export const getUser = ( req, res ) => {
+export const getUsers = ( req, res ) => {
   res.type('text');
   res.json(
     Mock.mock( {
