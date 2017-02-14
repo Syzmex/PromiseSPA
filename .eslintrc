@@ -2,7 +2,7 @@
   "parser": "babel-eslint",
   "extends": [
     "airbnb",
-    "eslint.config.js"
+    "./eslint.config.js"
   ],
   "rules": {
     "generator-star-spacing": [0],
