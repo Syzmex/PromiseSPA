@@ -1,6 +1,12 @@
+dist
+node_modules
+lib
+.svn
+.DS_Store
 logs
 *.log
 npm-debug.log*
 coverage
 node_modules
-dist
+.sass-cache
+*.css.map
