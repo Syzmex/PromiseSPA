@@ -59,7 +59,7 @@ export default ( webpackConfig, env ) => {
   if ( env === 'production' ) {
 
     // 字体打包
-    loaders.unshift( {
+    webpackConfig.module.loaders.unshift( {
       test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file',
       query: {
@@ -74,7 +74,10 @@ export default ( webpackConfig, env ) => {
     // css common 添加 hash
     webpackConfig.plugins.forEach( ( plugin, index, plugins ) => {
       if ( plugin instanceof ExtractTextPlugin ) {
-        plugins[ index ] = new ExtractTextPlugin( '[name].[chunkhash:6].css' );
+        plugins[ index ] = new ExtractTextPlugin( '[name].[chunkhash:6].css', {
+          disable: false,
+          allChunks: true
+        } );
       }
       else if ( plugin instanceof webpack.optimize.CommonsChunkPlugin ) {
         plugins[ index ] = new webpack.optimize.CommonsChunkPlugin(
