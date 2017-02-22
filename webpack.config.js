@@ -1,21 +1,48 @@
+// import glob from 'glob';
 import webpack from 'webpack';
 import { isRegExp } from 'lodash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 
-// rucksack
-// import rucksack from 'rucksack-css';
+// pxtorem
+// import pxtorem from 'postcss-pxtorem';
 
 export default ( webpackConfig, env ) => {
 
   const loaders = webpackConfig.module.loaders;
 
-  // rucksack
+  // postcss antd-mobile 样式单位转换 px -> rem
   // const postcss = webpackConfig.postcss;
   // webpackConfig.postcss = function () {
-  //   return postcss().unshift( rucksack() );
+  //   const postcssArray = postcss();
+  //   postcssArray.push( pxtorem( {
+  //     rootValue: 100,
+  //     propWhiteList: []
+  //   } ) );
+  //   return postcssArray;
   // };
+
+  // antd-mobile svg icon 配置
+  // 如果需要本地部署图标，需要在此加入本地图标路径
+  // const svgDirs = [];
+
+  // 把`antd-mobile/lib`目录下的 svg 文件加入进来，给 svg-sprite-loader 插件处理
+  // glob.sync( 'node_modules/**/*antd-mobile/lib', { dot: true } ).forEach( ( p ) => {
+  //   svgDirs.push( new RegExp( p ) );
+  // } );
+
+  // loaders.forEach( ( loader ) => {
+  //   if ( loader.test && loader.test.toString() === '/\\.svg$/' ) {
+  //     loader.exclude = svgDirs;
+  //   }
+  // } );
+
+  // loaders.unshift( {
+  //   test: /\.svg$/,
+  //   loader: 'svg-sprite',
+  //   include: svgDirs
+  // } );
 
   // 根目录使用相对地址
   webpackConfig.output.publicPath = '';
@@ -35,6 +62,16 @@ export default ( webpackConfig, env ) => {
   // lodash
   webpackConfig.babel.plugins.push( 'lodash' );
   webpackConfig.plugins.push( new LodashModuleReplacementPlugin() );
+
+  // 字体本地化
+  loaders.unshift( {
+    test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url',
+    query: {
+      limit: 10000,
+      name: 'static/[hash:4].[ext]'
+    }
+  } );
 
   // 生成 HTML
   webpackConfig.module.loaders = loaders.filter(
@@ -58,31 +95,22 @@ export default ( webpackConfig, env ) => {
   // 打包配置
   if ( env === 'production' ) {
 
-    // 字体打包
-    webpackConfig.module.loaders.unshift( {
-      test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file',
-      query: {
-        name: 'static/[name].[hash:8].[ext]'
-      }
-    } );
-
     // 所有输出文件添加 hash
-    webpackConfig.output.filename = '[name].[chunkhash:6].js';
-    webpackConfig.output.chunkFilename = '[name].[chunkhash:6].js';
+    webpackConfig.output.filename = '[chunkhash:4].js';
+    webpackConfig.output.chunkFilename = '[chunkhash:4].js';
 
     // css common 添加 hash
     webpackConfig.plugins.forEach( ( plugin, index, plugins ) => {
       if ( plugin instanceof ExtractTextPlugin ) {
-        plugins[ index ] = new ExtractTextPlugin( '[name].[chunkhash:6].css', {
-          disable: false,
-          allChunks: true
-        } );
+        plugins[ index ] = new ExtractTextPlugin(
+          '[chunkhash:4].css',
+          { disable: false, allChunks: true }
+        );
       }
       else if ( plugin instanceof webpack.optimize.CommonsChunkPlugin ) {
         plugins[ index ] = new webpack.optimize.CommonsChunkPlugin(
           'common',
-          'common.[chunkhash:6].js'
+          '[chunkhash:6].js'
         );
       }
     } );

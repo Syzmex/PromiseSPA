@@ -5,6 +5,7 @@ const path = require( 'path' );
 
 
 module.exports = {
-  // '@icon-url': `"${path.relative( './~/antd/lib/style/*', './src/assets/fonts/iconfont' )}"`
+  // antd 字体本地化
+  '@icon-url': `'${path.relative( './~/antd/lib/style/*', './src/assets/fonts/iconfont' )}'`
 };
 
