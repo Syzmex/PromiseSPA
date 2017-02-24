@@ -3,6 +3,7 @@
   "scripts": {
     "test": "roadhog test --coverage",
     "test-cat": "roadhog test --coverage -R nyan",
+    "test-es5": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- --compilers .:./node_modules/roadhog/lib/test/compiler.js --require ./node_modules/roadhog/lib/test/setup.js",
     "start": "roadhog server --no-open",
     "build": "roadhog build",

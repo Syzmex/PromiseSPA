@@ -4,6 +4,6 @@ node_js:
   - "4"
   - "6"
   - "7"
-script: npm run coveralls
+script: npm run test-es5
 
 after_success: cat ./coverage/lcov.info | node_modules/.bin/coveralls --verbose && rm -rf ./coverage
