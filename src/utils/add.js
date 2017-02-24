@@ -1,3 +1,6 @@
 
 
-export default ( a, b ) => a + b;
+export default {
+  multiply: ( a, b ) => a * b,
+  add: ( a, b ) => a + b
+};
