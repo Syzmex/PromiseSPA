@@ -7,6 +7,17 @@
     "lint": "eslint --ext .js src",
     "precommit": "npm run lint"
   },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "babel-register",
+      "roadhog/test/setup.js"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
   "engines": {
     "install-node": "6.9.2"
   },
