@@ -1,16 +1,18 @@
 
 
 /* globals describe:true it:true */
-import expect from 'expect';
+// import expect from 'expect';
 
-// test example
-import { add } from '../src/utils/add';
+// // test example
+// import { add } from '../src/utils/add';
 
+var expect = require('expect');
+var add = require('../src/utils/add').add;
 
 // 函数测试
-describe( '#utils', () => {
-  describe( '#add()', () => {
-    it( '加法1', () => {
+describe( '#utils', function () {
+  describe( '#add()', function () {
+    it( '加法1', function () {
       expect( add( 1, 2 ) ).toEqual( 3 );
     } );
     it( '加法2', () => {

@@ -1,6 +1,6 @@
 
 
-export default {
-  multiply: ( a, b ) => a * b,
-  add: ( a, b ) => a + b
+module.exports = {
+  multiply: function ( a, b ) { return a * b; },
+  add: function ( a, b ) { return a + b; }
 };
