@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { Tag } from 'antd';
 import './IndexPage.less';
@@ -21,8 +20,7 @@ function IndexPage() {
 }
 
 
-IndexPage.propTypes = {};
+// IndexPage.propTypes = {};
 
 
 export default IndexPage;
-

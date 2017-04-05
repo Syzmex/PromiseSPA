@@ -49,36 +49,34 @@ export default ( webpackConfig, env ) => {
 
   // 不打包 moment.js 的语言包
   const noParse = webpackConfig.module.noParse;
-  if ( Array.isArray( noParse ) ) {
+  if ( Array.isArray( noParse )) {
     noParse.push( /moment.js/ );
-  }
-  else if ( noParse ) {
-    webpackConfig.module.noParse = [ noParse, /moment.js/ ];
-  }
-  else {
-    webpackConfig.module.noParse = [ /moment.js/ ];
+  } else if ( noParse ) {
+    webpackConfig.module.noParse = [noParse, /moment.js/];
+  } else {
+    webpackConfig.module.noParse = [/moment.js/];
   }
 
   // lodash
   webpackConfig.babel.plugins.push( 'lodash' );
-  webpackConfig.plugins.push( new LodashModuleReplacementPlugin() );
+  webpackConfig.plugins.push( new LodashModuleReplacementPlugin());
 
   // 字体本地化
-  loaders.unshift( {
+  loaders.unshift({
     test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
     loader: 'url',
     query: {
       limit: 10000,
       name: 'static/[hash:4].[ext]'
     }
-  } );
+  });
 
   // 生成 HTML
   webpackConfig.module.loaders = loaders.filter(
     loader => isRegExp( loader.test ) && loader.test.toString() !== '/\\.html$/'
   );
   webpackConfig.plugins.push(
-    new HtmlWebpackPlugin( {
+    new HtmlWebpackPlugin({
       // favicon: './src/logo/logo.ico',
       template: './src/index.html',
       filename: 'index.html',
@@ -89,7 +87,7 @@ export default ( webpackConfig, env ) => {
       //   removeComments: false,  //移除HTML中的注释
       //   collapseWhitespace: false  //删除空白符与换行符
       // }
-    } )
+    })
   );
 
   // 打包配置
@@ -100,20 +98,19 @@ export default ( webpackConfig, env ) => {
     webpackConfig.output.chunkFilename = '[chunkhash:4].js';
 
     // css common 添加 hash
-    webpackConfig.plugins.forEach( ( plugin, index, plugins ) => {
+    webpackConfig.plugins.forEach(( plugin, index, plugins ) => {
       if ( plugin instanceof ExtractTextPlugin ) {
-        plugins[ index ] = new ExtractTextPlugin(
+        plugins[index] = new ExtractTextPlugin(
           '[chunkhash:4].css',
           { disable: false, allChunks: true }
         );
-      }
-      else if ( plugin instanceof webpack.optimize.CommonsChunkPlugin ) {
-        plugins[ index ] = new webpack.optimize.CommonsChunkPlugin(
+      } else if ( plugin instanceof webpack.optimize.CommonsChunkPlugin ) {
+        plugins[index] = new webpack.optimize.CommonsChunkPlugin(
           'common',
           '[chunkhash:6].js'
         );
       }
-    } );
+    });
 
   }
 

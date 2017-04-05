@@ -1,7 +1,5 @@
 
-
 import proxy from './proxy.config.js';
-
 
 export default {
   proxy,
